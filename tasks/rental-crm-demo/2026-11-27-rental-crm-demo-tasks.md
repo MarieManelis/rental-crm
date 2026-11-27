@@ -270,9 +270,9 @@
     → `e2e/keyboard.spec.ts`: search reached by Tab with a visible outline,
       sort header works with Enter, dialog focuses "Stay" and closes with
       Escape [live] (2026-11-27)
-- [ ] 7.0 **User Story:** As a recruiter, I want a public repository with a
+- [X] 7.0 **User Story:** As a recruiter, I want a public repository with a
   README and a deployed demo link, so that I can see the work in under a
-  minute [0/8]
+  minute [8/8]
   - [X] 7.1 Build step copies `dist/index.html` to `dist/404.html`; add
     `.github/workflows/deploy.yml` from the Vite GitHub Pages workflow,
     running only after CI succeeds on `main` [verify: code-only]
@@ -312,6 +312,9 @@
     [verify: observation]
     → LCP 0.68–0.98 s over three cold-cache runs in Chromium; noted in the
       README [live] (2026-11-27)
-  - [ ] 7.8 Propose (do not push) the profile README and CV update with the
+  - [X] 7.8 Propose (do not push) the profile README and CV update with the
     demo and repo links; push only after the owner approves
     [verify: manual-run-user]
+    → owner approved the profile README only; it now has a "Public
+      project" section with repo and demo links. CV left unchanged at the
+      owner's choice (2026-11-27)
