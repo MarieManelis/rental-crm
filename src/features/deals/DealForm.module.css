@@ -1,0 +1,70 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3) var(--space-4);
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.section legend {
+  padding: 0 var(--space-1);
+  font-weight: 700;
+}
+
+.radioGroup {
+  display: flex;
+  align-items: end;
+  gap: var(--space-4);
+  min-height: 38px;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.saved {
+  margin: 0 auto 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-accent-strong);
+}
+
+.saveError {
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-danger);
+  background: var(--color-danger-soft);
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 600px) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer {
+    flex-wrap: wrap;
+  }
+
+  .saved {
+    flex-basis: 100%;
+  }
+}

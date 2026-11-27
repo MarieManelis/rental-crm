@@ -65,27 +65,29 @@ const serverFields = {
   closedAt: z.iso.datetime().nullable(),
 }
 
-function checkStayDates(
-  value: { rentalType: RentalType; checkIn?: string; checkOut?: string },
-  ctx: z.RefinementCtx,
-) {
-  if (value.rentalType !== 'short' || !value.checkIn || !value.checkOut) return
-  if (daysBetween(value.checkIn, value.checkOut) < 1) {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Check-out must be after check-in',
-      path: ['checkOut'],
-      input: value.checkOut,
-    })
-  }
+const stayDatesSchema = z.object({
+  rentalType: z.literal('short'),
+  checkIn: z.iso.date(),
+  checkOut: z.iso.date(),
+})
+
+function stayDatesInOrder(value: { rentalType: RentalType; checkIn?: string; checkOut?: string }): boolean {
+  return value.rentalType !== 'short' || !value.checkIn || !value.checkOut || daysBetween(value.checkIn, value.checkOut) >= 1
 }
+
+const stayDatesOptions = () => ({
+  message: 'Check-out must be after check-in',
+  path: ['checkOut'],
+  // Run even when unrelated fields are invalid, as long as both dates parse.
+  when: (payload: { value: unknown }) => stayDatesSchema.safeParse(payload.value).success,
+})
 
 export const longTermDealSchema = z.object({ ...serverFields, ...commonFields, ...longTermFields })
 export const shortTermDealSchema = z.object({ ...serverFields, ...commonFields, ...shortTermFields })
 
 export const dealSchema = z
   .discriminatedUnion('rentalType', [longTermDealSchema, shortTermDealSchema])
-  .superRefine(checkStayDates)
+  .refine(stayDatesInOrder, stayDatesOptions())
 
 export const dealListSchema = z.array(dealSchema)
 
@@ -98,7 +100,7 @@ export const dealFormSchema = z
     z.object({ ...commonFields, ...longTermFields }),
     z.object({ ...commonFields, ...shortTermFields }),
   ])
-  .superRefine(checkStayDates)
+  .refine(stayDatesInOrder, stayDatesOptions())
 
 export type DealFormInput = z.input<typeof dealFormSchema>
 export type DealFormValues = z.output<typeof dealFormSchema>

@@ -158,9 +158,10 @@ resetDemoData(): Promise<void>
   `/react-hook-form/resolvers`), 2026-11-27.
 - Rental type is a field. Switching it swaps the visible branch; `shouldUnregister: true`
   drops the hidden branch's values so validation only checks the visible branch.
-- Cross-field rule (check-out after check-in) is a `.superRefine()` on the whole union with
-  `path: ['checkOut']`, so the error lands on the check-out field. Zod v4 docs document this
-  form; refinements on individual union options are not documented.
+- Cross-field rule (check-out after check-in) is a `.refine()` on the whole union with
+  `path: ['checkOut']`, so the error lands on the check-out field. It sets `when` to run as soon
+  as both dates parse: by default Zod v4 skips refinements while any other field is invalid,
+  which would hide this error behind, for example, an empty client name.
 - Unsaved changes: `useBlocker({ shouldBlockFn: () => isDirty, withResolver: true,
   enableBeforeUnload: () => isDirty })` with an own confirmation dialog — verified via:
   TanStack Router `useBlocker` docs, 2026-11-27. After a successful save the form is reset to

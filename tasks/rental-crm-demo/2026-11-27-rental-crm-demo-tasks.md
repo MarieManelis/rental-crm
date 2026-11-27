@@ -174,32 +174,41 @@
     projects [verify: e2e]
     → 22 passed, 2 skipped by design (header sort is desktop-only, sort
       select is mobile-only) [live] (2026-11-27)
-- [ ] 4.0 **User Story:** As an agent, I want a deal page with an edit form
+- [X] 4.0 **User Story:** As an agent, I want a deal page with an edit form
   that adapts to the rental type and warns about unsaved changes, so that
-  deal data stays correct [0/8]
-  - [ ] 4.1 Write `e2e/deal-form.spec.ts`: open a deal by direct URL; edit
+  deal data stays correct [8/8]
+  - [X] 4.1 Write `e2e/deal-form.spec.ts`: open a deal by direct URL; edit
     and save; list and dashboard show the new value without reload
     [verify: e2e]
-  - [ ] 4.2 Add to the spec: switching rental type swaps the type-specific
+    → list part covered here; dashboard part is checked in
+      `e2e/dashboard.spec.ts` (story 5) (2026-11-27)
+  - [X] 4.2 Add to the spec: switching rental type swaps the type-specific
     fields; check-out before check-in shows an error on check-out; required
     field errors appear next to fields [verify: e2e]
-  - [ ] 4.3 Add to the spec: leaving with unsaved changes shows the dialog;
+    → date rule uses `.refine()` with `when`: without it Zod v4 skips the
+      rule while any other field is invalid (2026-11-27)
+  - [X] 4.3 Add to the spec: leaving with unsaved changes shows the dialog;
     "Stay" keeps the edits, "Leave" navigates; after a save no dialog
     [verify: e2e]
-  - [ ] 4.4 Implement `deals/$dealId.tsx`: loader ensures detail query and
+  - [X] 4.4 Implement `deals/$dealId.tsx`: loader ensures detail query and
     throws `notFound()` when `getDeal` returns null; component reads with
     `useSuspenseQuery` [verify: e2e]
-  - [ ] 4.5 Implement `DealForm` with React Hook Form + `zodResolver`,
+  - [X] 4.5 Implement `DealForm` with React Hook Form + `zodResolver`,
     `shouldUnregister: true`, own field components from `src/ui`
     [verify: e2e]
-  - [ ] 4.6 Wire save through `useUpdateDeal`: saving state on the button,
+  - [X] 4.6 Wire save through `useUpdateDeal`: saving state on the button,
     inline error on failure (form keeps values), `reset(savedDeal)` on
     success [verify: e2e]
-  - [ ] 4.7 Implement `LeaveDialog` with `useBlocker({ shouldBlockFn,
+    → reset runs in an effect on `isSubmitSuccessful`, as the RHF docs
+      recommend; failure test switches on `?demo-fail` after load
+      (2026-11-27)
+  - [X] 4.7 Implement `LeaveDialog` with `useBlocker({ shouldBlockFn,
     withResolver: true, enableBeforeUnload })` bound to `isDirty`
     [verify: e2e]
-  - [ ] 4.8 All of `e2e/deal-form.spec.ts` passes on desktop and mobile
+  - [X] 4.8 All of `e2e/deal-form.spec.ts` passes on desktop and mobile
     [verify: e2e]
+    → 14 passed (7 per project); full suite 36 passed, 2 skipped by design
+      [live] (2026-11-27)
 - [ ] 5.0 **User Story:** As an agent, I want a dashboard with pipeline and
   income charts that link into the filtered list, so that I see what needs
   attention at a glance [0/5]
