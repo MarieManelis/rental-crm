@@ -296,14 +296,22 @@
       history; all commits use the GitHub noreply email; internal workflow
       tool names removed from the PRD and design at the owner's request
       [live] (2026-11-27)
-  - [ ] 7.5 Owner confirms making `rental-crm` public; then change
+  - [X] 7.5 Owner confirms making `rental-crm` public; then change
     visibility and enable Pages with source "GitHub Actions"
     [verify: manual-run-user]
-  - [ ] 7.6 Deploy runs green; open the demo URL and a direct
+    → owner chose "remove tool names first, then publish"; repo public,
+      Pages enabled with build type `workflow` (2026-11-27)
+  - [X] 7.6 Deploy runs green; open the demo URL and a direct
     `/deals/<id>` link; both render [verify: manual-run-claude]
-  - [ ] 7.7 Measure first screen load on the deployed URL once (Lighthouse
+    → first deploy failed: the artifact was not yet visible to
+      deploy-pages right after Pages was enabled; a fresh run succeeded.
+      Direct links `/deals/D-1001` and `/deals?stage=won` render in
+      Chromium via `404.html` [live] (2026-11-27)
+  - [X] 7.7 Measure first screen load on the deployed URL once (Lighthouse
     or DevTools) and note the result in the README
     [verify: observation]
+    → LCP 0.68–0.98 s over three cold-cache runs in Chromium; noted in the
+      README [live] (2026-11-27)
   - [ ] 7.8 Propose (do not push) the profile README and CV update with the
     demo and repo links; push only after the owner approves
     [verify: manual-run-user]

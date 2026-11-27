@@ -68,6 +68,12 @@ src/
 e2e/             Playwright specs
 ```
 
+## Performance
+
+On the deployed demo the first screen's largest element renders in about 0.7–1.0 s
+(Chromium, cold browser cache, desktop broadband; three runs on 27 Nov 2026). Route-level
+code splitting keeps the chart library out of the list and deal pages.
+
 ## Try the failure mode
 
 Add `?demo-fail` to any URL, for example
