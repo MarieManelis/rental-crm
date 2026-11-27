@@ -293,9 +293,9 @@
     employer names, personal data and real emails; report results to the
     owner [verify: manual-run-claude]
     → no employer names, tickets, real emails or local paths in files or
-      history; all commits use the GitHub noreply email; only workflow tool
-      names (`embo`, `claude-mem`) appear in the PRD and design [live]
-      (2026-11-27)
+      history; all commits use the GitHub noreply email; internal workflow
+      tool names removed from the PRD and design at the owner's request
+      [live] (2026-11-27)
   - [ ] 7.5 Owner confirms making `rental-crm` public; then change
     visibility and enable Pages with source "GitHub Actions"
     [verify: manual-run-user]

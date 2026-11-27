@@ -3,7 +3,7 @@
 **Status**: Draft
 **Created**: 2026-11-27
 **Tracker**: none (personal portfolio project)
-**Author**: Claude (via embo workflow), reviewed by the project owner
+**Author**: Claude Code (AI assistant), reviewed by the project owner
 
 ---
 
@@ -190,7 +190,7 @@ pipeline, so that I know which deals need my attention.
 ### From Codebase
 - Empty repository; no existing code.
 
-### From History (claude-mem)
+### From Earlier Work
 - No past PRDs for this project. Constraints taken from the owner's CV work: claims must match
   what the owner did; no inferred facts.
 
@@ -198,5 +198,5 @@ pipeline, so that I know which deals need my attention.
 
 **Next Steps**:
 1. Review and refine this PRD.
-2. Run `/embo:tech-design` to create the technical design (versions and APIs checked in docs).
-3. Run `/embo:tasks` to break it down into tasks.
+2. Write the technical design (versions and APIs checked in official docs).
+3. Break the design down into tasks.

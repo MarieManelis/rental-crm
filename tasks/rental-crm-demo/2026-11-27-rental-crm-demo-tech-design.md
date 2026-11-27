@@ -32,7 +32,7 @@ holds only unsaved edits. There is no global client store.
 - **PRD constraint "only CV technologies"** → relaxed for the build tool only: Vite instead of
   Webpack, by the owner's decision (2026-11-27). Everything else stays within the CV list.
 
-## Past Decisions (claude-mem)
+## Past Decisions
 
 - No past designs for this project. Owner's commercial experience: migrating a large app to
   file-based typed routes, and planning a move of server state to TanStack Query. This design
@@ -279,4 +279,4 @@ Latest versions on npm, checked 2026-11-27 with `npm view`. Exact pins happen at
 
 **Next Steps**:
 1. Review and approve design.
-2. Run `/embo:tasks` for task breakdown.
+2. Break the design down into tasks.
