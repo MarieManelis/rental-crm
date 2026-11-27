@@ -273,19 +273,29 @@
 - [ ] 7.0 **User Story:** As a recruiter, I want a public repository with a
   README and a deployed demo link, so that I can see the work in under a
   minute [0/8]
-  - [ ] 7.1 Build step copies `dist/index.html` to `dist/404.html`; add
+  - [X] 7.1 Build step copies `dist/index.html` to `dist/404.html`; add
     `.github/workflows/deploy.yml` from the Vite GitHub Pages workflow,
     running only after CI succeeds on `main` [verify: code-only]
-  - [ ] 7.2 Take screenshots of the three screens (desktop) with Playwright
+    → deploy job is skipped while the repo is private; action SHAs checked
+      against each action's release tags (2026-11-27)
+  - [X] 7.2 Take screenshots of the three screens (desktop) with Playwright
     into `docs/screenshots/` [verify: manual-run-claude]
-  - [ ] 7.3 Write `README.md`: one-line pitch, demo link, screenshots, stack
+    → three PNGs checked by eye; they exposed and led to fixes for the
+      wrapped "Clear filters", uneven field heights and the missing visible
+      "Rental type" label; full suite 66 passed, 4 skipped by design [live]
+      (2026-11-27)
+  - [X] 7.3 Write `README.md`: one-line pitch, demo link, screenshots, stack
     with the reason for each library, architecture summary (URL + query
     cache as sources of truth), how the failure flag works, local run
     commands, links to PRD, tech design and tasks, note that data is
     invented [verify: code-only]
-  - [ ] 7.4 Public-safety check: search the whole repo and git history for
+  - [X] 7.4 Public-safety check: search the whole repo and git history for
     employer names, personal data and real emails; report results to the
     owner [verify: manual-run-claude]
+    → no employer names, tickets, real emails or local paths in files or
+      history; all commits use the GitHub noreply email; only workflow tool
+      names (`embo`, `claude-mem`) appear in the PRD and design [live]
+      (2026-11-27)
   - [ ] 7.5 Owner confirms making `rental-crm` public; then change
     visibility and enable Pages with source "GitHub Actions"
     [verify: manual-run-user]

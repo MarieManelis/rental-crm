@@ -123,13 +123,18 @@ export function DealForm({ deal }: { deal: Deal }) {
               </select>
             )}
           </Field>
-          <div className={styles.radioGroup} role="radiogroup" aria-label="Rental type">
-            {RENTAL_TYPES.map((type) => (
-              <label key={type} className={styles.radio}>
-                <input type="radio" value={type} {...register('rentalType')} />
-                {RENTAL_TYPE_LABELS[type]}
-              </label>
-            ))}
+          <div className={styles.radioField}>
+            <span className={styles.radioLabel} id="rental-type-label">
+              Rental type
+            </span>
+            <div className={styles.radioGroup} role="radiogroup" aria-labelledby="rental-type-label">
+              {RENTAL_TYPES.map((type) => (
+                <label key={type} className={styles.radio}>
+                  <input type="radio" value={type} {...register('rentalType')} />
+                  {RENTAL_TYPE_LABELS[type]}
+                </label>
+              ))}
+            </div>
           </div>
         </fieldset>
 
