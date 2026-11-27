@@ -209,22 +209,32 @@
     [verify: e2e]
     → 14 passed (7 per project); full suite 36 passed, 2 skipped by design
       [live] (2026-11-27)
-- [ ] 5.0 **User Story:** As an agent, I want a dashboard with pipeline and
+- [X] 5.0 **User Story:** As an agent, I want a dashboard with pipeline and
   income charts that link into the filtered list, so that I see what needs
-  attention at a glance [0/5]
-  - [ ] 5.1 Write `e2e/dashboard.spec.ts`: summary numbers match the seed;
+  attention at a glance [5/5]
+  - [X] 5.1 Write `e2e/dashboard.spec.ts`: summary numbers match the seed;
     both charts render; clicking a stage bar opens `/deals?stage=...` and
     every row has that stage [verify: e2e]
-  - [ ] 5.2 Install Recharts; implement summary number tiles from
+    → expected numbers come from the seed generator imported into the
+      spec; also covers the dashboard part of 4.1 (edit → tiles update)
+      (2026-11-27)
+  - [X] 5.2 Install Recharts; implement summary number tiles from
     `aggregates.ts` [verify: e2e]
-  - [ ] 5.3 Implement stacked bar chart of deals by stage split by rental
+  - [X] 5.3 Implement stacked bar chart of deals by stage split by rental
     type, with accessible labels and a legend [verify: e2e]
-  - [ ] 5.4 Implement expected income by month chart and stage-bar click
+    → stage links under the chart give the same drill-down without the
+      chart (keyboard, screen readers) (2026-11-27)
+  - [X] 5.4 Implement expected income by month chart and stage-bar click
     navigation with typed `navigate({ to: '/deals', search: { stage } })`
     [verify: e2e]
-  - [ ] 5.5 Confirm the chart library is in the dashboard chunk only
+    → 10 passed (desktop, mobile); screenshots checked: axis labels were
+      clipped and one mobile tick was hidden, fixed with `width="auto"`
+      and `interval={0}` [live] (2026-11-27)
+  - [X] 5.5 Confirm the chart library is in the dashboard chunk only
     (build output lists it outside the list and deal chunks)
     [verify: manual-run-claude]
+    → `recharts` found only in the dashboard route chunk; absent from the
+      main, list and deal chunks [live] (2026-11-27)
 - [ ] 6.0 **User Story:** As a visitor, I want clear error, not-found and
   reset behaviour and a usable mobile layout, so that the demo never looks
   broken [0/6]
