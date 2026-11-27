@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { createRootRouteWithContext, Link, Outlet } from '@tanstack/react-router'
+import { createRootRouteWithContext, Link, Outlet, useRouterState } from '@tanstack/react-router'
 import type { QueryClient } from '@tanstack/react-query'
 import styles from '../styles/layout.module.css'
 
@@ -16,8 +16,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 })
 
 function RootLayout() {
+  const loading = useRouterState({ select: (state) => state.isLoading })
+
   return (
     <div className={styles.shell}>
+      <div className={styles.progress} data-active={loading} role="progressbar" aria-label="Loading" aria-hidden={!loading} />
       <header className={styles.header}>
         <span className={styles.brand}>Rental CRM</span>
         <nav className={styles.nav} aria-label="Main">

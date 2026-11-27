@@ -28,7 +28,8 @@
   `listAllDeals`, `resetDemoData`; latency and failure flag.
 - `src/features/deals/queries.ts` :: Query key factory, `queryOptions`,
   `useUpdateDeal` mutation.
-- `src/features/deals/DealList*.tsx`, `DealFilters*.tsx` :: List screen.
+- `src/features/deals/DealTable.tsx`, `DealFilters.tsx`, `SortSelect.tsx`,
+  `Pager.tsx`, `search.ts` :: List screen and its URL search schema.
 - `src/features/deals/DealForm*.tsx`, `LeaveDialog.tsx` :: Deal form and
   unsaved-changes dialog.
 - `src/features/dashboard/*.tsx` :: Charts and summary numbers.
@@ -144,28 +145,35 @@
       stored deals with the schema [live] (2026-11-27)
 - [ ] 3.0 **User Story:** As an agent, I want a deal list with filters,
   sorting and paging stored in the URL, so that I find deals quickly and can
-  share or reload the exact view [0/7]
-  - [ ] 3.1 Write `e2e/deal-list.spec.ts`: filter by type, stage, city,
+  share or reload the exact view [6/7]
+  - [X] 3.1 Write `e2e/deal-list.spec.ts`: filter by type, stage, city,
     price range and text changes rows and URL; sorting by created date,
     value and stage; paging; reload keeps the view; changing a filter
     resets page to 1 [verify: e2e]
-  - [ ] 3.2 Add to the same spec: bad URL values (`stage=foo`, `page=0`,
+  - [X] 3.2 Add to the same spec: bad URL values (`stage=foo`, `page=0`,
     `minValue=-5`) render the default list without an error
     [verify: e2e]
-  - [ ] 3.3 Implement the list search schema in `deals/index.tsx` with
+  - [X] 3.3 Implement the list search schema in `deals/index.tsx` with
     `.catch()` defaults, passed directly to `validateSearch`; `loaderDeps`
     from search; loader `ensureQueryData(listOptions(deps))`
     [verify: e2e]
-  - [ ] 3.4 Implement `DealFilters` bound to the URL via typed `navigate`
+  - [X] 3.4 Implement `DealFilters` bound to the URL via typed `navigate`
     (`replace: true` and debounce for text search; page reset on change)
     [verify: e2e]
-  - [ ] 3.5 Implement `DealList` table (client, address, city, type badge,
+  - [X] 3.5 Implement `DealList` table (client, address, city, type badge,
     stage badge, value, created date), sortable headers and pager; rows link
     to `/deals/$dealId` [verify: e2e]
-  - [ ] 3.6 Loading (pending component), empty ("No deals match") and error
+    → added `SortSelect` for narrow screens: column headers are hidden when
+      the table turns into cards, so mobile had no way to sort (2026-11-27)
+  - [~] 3.6 Loading (pending component), empty ("No deals match") and error
     states for the list [verify: e2e]
-  - [ ] 3.7 All of `e2e/deal-list.spec.ts` passes on desktop and mobile
+    → loading (header progress bar + dimmed table) and empty state pass on
+      both projects [live]; error state pending the shared error component
+      in 6.2 (2026-11-27)
+  - [X] 3.7 All of `e2e/deal-list.spec.ts` passes on desktop and mobile
     projects [verify: e2e]
+    → 22 passed, 2 skipped by design (header sort is desktop-only, sort
+      select is mobile-only) [live] (2026-11-27)
 - [ ] 4.0 **User Story:** As an agent, I want a deal page with an edit form
   that adapts to the rental type and warns about unsaved changes, so that
   deal data stays correct [0/8]

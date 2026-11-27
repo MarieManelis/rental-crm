@@ -4,6 +4,33 @@
   flex-direction: column;
 }
 
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: 3px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+}
+
+.progress[data-active='true'] {
+  opacity: 1;
+  animation: progress 1.2s ease-out forwards;
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0.1);
+  }
+  to {
+    transform: scaleX(0.85);
+  }
+}
+
 .header {
   position: sticky;
   top: 0;

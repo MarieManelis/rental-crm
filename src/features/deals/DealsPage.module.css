@@ -1,0 +1,16 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.total {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
