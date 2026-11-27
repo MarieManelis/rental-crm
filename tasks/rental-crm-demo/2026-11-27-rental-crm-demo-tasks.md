@@ -56,9 +56,9 @@
 - Commits: English subject, short body, no AI co-author trailer.
 
 ## Tasks
-- [ ] 1.0 **User Story:** As the owner, I want a running project skeleton
+- [X] 1.0 **User Story:** As the owner, I want a running project skeleton
   with routing, query client, lint, type check, Playwright and CI, so that
-  every later story lands on a checked base [7/8]
+  every later story lands on a checked base [8/8]
   - [X] 1.1 Create `package.json` with npm scripts `dev`, `build`
     (type check + Vite build), `preview`, `lint`, `typecheck`, `e2e`;
     install React, Vite, `@vitejs/plugin-react`, TanStack Router + router
@@ -91,42 +91,57 @@
     → 2 passed (desktop, mobile) [live] (2026-11-27)
   - [X] 1.7 Add `src/styles/tokens.css` and base layout styles with CSS
     Modules (header, content area) [verify: code-only]
-  - [ ] 1.8 Add `.github/workflows/ci.yml` (npm ci, lint, typecheck, build,
+  - [X] 1.8 Add `.github/workflows/ci.yml` (npm ci, lint, typecheck, build,
     Playwright with browser install); create private GitHub repo
     `rental-crm`, push, confirm the CI run is green with `gh run list`
     [verify: manual-run-claude]
-- [ ] 2.0 **User Story:** As an agent, I want deal data with both rental
+    → private repo created; first CI run succeeded on every step (lint,
+      typecheck, e2e); commits use the GitHub noreply author email
+      [live] (2026-11-27)
+- [X] 2.0 **User Story:** As an agent, I want deal data with both rental
   types served by a fake API with delay, failure mode and persistence, so
-  that the screens behave like a real client of a real backend [0/7]
-  - [ ] 2.1 Implement `src/domain/deal.ts`: stage and city enums, common
+  that the screens behave like a real client of a real backend [7/7]
+  - [X] 2.1 Implement `src/domain/deal.ts`: stage and city enums, common
     fields, long-term and short-term branches, `Deal` discriminated union on
     `rentalType`, inferred types; form schema via `.omit()` of server-owned
     fields plus cross-field rules (check-out after check-in, deposit >= 0).
     Confirm in Zod v4 docs where the cross-field rule must sit
     [verify: code-only]
-  - [ ] 2.2 Implement `src/domain/aggregates.ts`: deal value, nights,
+    → cross-field rule is `.superRefine()` on the union with
+      `path: ['checkOut']` (documented); refinements on union options are
+      not documented (2026-11-27)
+  - [X] 2.2 Implement `src/domain/aggregates.ts`: deal value, nights,
     expected income by month (only `contract` and `won`), counts by stage
     and type, summary numbers (open deals, closed this month, average
     value) [verify: code-only]
-  - [ ] 2.3 Implement `src/api/seed.ts`: seeded PRNG, ~80 deals across both
+    → demo clock fixed at 2026-11-27 (`src/domain/clock.ts`) so "this
+      month" and seed dates do not drift after publishing (2026-11-27)
+  - [X] 2.3 Implement `src/api/seed.ts`: seeded PRNG, ~80 deals across both
     types, all stages and several invented cities, dates relative to a fixed
     anchor date; output parses with the `Deal` schema [verify: code-only]
-  - [ ] 2.4 Implement `src/api/storage.ts`: one versioned key, seed on first
+    → 80 deals; real Portuguese city names, invented people and streets,
+      emails on example.com (2026-11-27)
+  - [X] 2.4 Implement `src/api/storage.ts`: one versioned key, seed on first
     load or version mismatch, in-memory fallback when storage throws
     [verify: code-only]
-  - [ ] 2.5 Implement `src/api/deals.ts`: `listDeals` (filter, sort, page,
+  - [X] 2.5 Implement `src/api/deals.ts`: `listDeals` (filter, sort, page,
     returns `{ items, total }`), `getDeal`, `updateDeal`, `listAllDeals`,
     `resetDemoData`; random delay in a fixed range; reject all calls when
     the failure flag is in the URL; parse every returned value with the
     schema [verify: code-only]
-  - [ ] 2.6 Implement `src/features/deals/queries.ts`: key factory with root
+    → price filter works on deal value (`minValue`/`maxValue`), since rent
+      and nightly rate are not comparable; failure flag is `?demo-fail`
+      (2026-11-27)
+  - [X] 2.6 Implement `src/features/deals/queries.ts`: key factory with root
     `['deals']`, `queryOptions` for list, detail and all; `useUpdateDeal`
     sets the detail cache then invalidates `['deals']`; QueryClient default
     `staleTime` set [verify: code-only]
-  - [ ] 2.7 Make the placeholder Deals page show "N deals" from
+  - [X] 2.7 Make the placeholder Deals page show "N deals" from
     `listAllDeals`; write `e2e/data.spec.ts`: N equals the seed count on
     first load and after a reload; spec passes. Story 3 replaces the
     placeholder [verify: e2e]
+    → 4 passed (smoke + data, desktop and mobile); reload path re-parses
+      stored deals with the schema [live] (2026-11-27)
 - [ ] 3.0 **User Story:** As an agent, I want a deal list with filters,
   sorting and paging stored in the URL, so that I find deals quickly and can
   share or reload the exact view [0/7]
@@ -135,7 +150,7 @@
     value and stage; paging; reload keeps the view; changing a filter
     resets page to 1 [verify: e2e]
   - [ ] 3.2 Add to the same spec: bad URL values (`stage=foo`, `page=0`,
-    `minPrice=-5`) render the default list without an error
+    `minValue=-5`) render the default list without an error
     [verify: e2e]
   - [ ] 3.3 Implement the list search schema in `deals/index.tsx` with
     `.catch()` defaults, passed directly to `validateSearch`; `loaderDeps`

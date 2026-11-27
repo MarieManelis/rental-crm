@@ -102,7 +102,8 @@ Search schema (Zod v4, passed directly to `validateSearch`, no adapter — docum
 - `type`: `long | short`, optional
 - `stage`: one stage, optional
 - `city`: one city, optional
-- `minPrice`, `maxPrice`: non-negative numbers, optional
+- `minValue`, `maxValue`: non-negative numbers, optional; compared with the deal value,
+  because monthly rent and nightly rate are not comparable
 - `q`: free text, optional
 - `sort`: `createdAt | value | stage`, default `createdAt`
 - `order`: `asc | desc`, default `desc`
@@ -131,9 +132,12 @@ resetDemoData(): Promise<void>
 - Persistence: one versioned `localStorage` key. On first load or version mismatch the store
   is filled from the seed generator. Storage access is wrapped so the app still runs (in
   memory) if storage is unavailable.
-- Seed: a deterministic generator with a fixed random seed produces ~80 deals across both
+- Seed: a deterministic generator with a fixed random seed produces 80 deals across both
   rental types, all stages and several cities, with dates relative to a fixed anchor date.
   Fixed seed + fixed anchor = stable data for screenshots and Playwright.
+- Demo clock: the app's "today" is a constant (2026-11-27). Seed dates, "closed this month"
+  and the `closedAt` set on edit all use it, so the dashboard does not drift to zeros after
+  publishing. The dashboard states the date the data is shown for.
 - Every value returned is parsed with the `Deal` schema, so corrupted storage surfaces as an
   error, not as broken UI.
 
@@ -154,9 +158,9 @@ resetDemoData(): Promise<void>
   `/react-hook-form/resolvers`), 2026-11-27.
 - Rental type is a field. Switching it swaps the visible branch; `shouldUnregister: true`
   drops the hidden branch's values so validation only checks the visible branch.
-- Cross-field rule (check-out after check-in) is attached so the error lands on the check-out
-  field. Whether the rule sits on the branch or on the union is confirmed against Zod v4 docs
-  at implementation.
+- Cross-field rule (check-out after check-in) is a `.superRefine()` on the whole union with
+  `path: ['checkOut']`, so the error lands on the check-out field. Zod v4 docs document this
+  form; refinements on individual union options are not documented.
 - Unsaved changes: `useBlocker({ shouldBlockFn: () => isDirty, withResolver: true,
   enableBeforeUnload: () => isDirty })` with an own confirmation dialog — verified via:
   TanStack Router `useBlocker` docs, 2026-11-27. After a successful save the form is reset to
