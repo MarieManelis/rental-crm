@@ -4,7 +4,9 @@ import { dealValue } from '../../domain/aggregates'
 import { RentalTypeBadge, StageBadge } from '../../features/deals/DealBadges'
 import { DealForm } from '../../features/deals/DealForm'
 import { dealDetailOptions } from '../../features/deals/queries'
+import { buttonClassName } from '../../ui/Button'
 import { formatDate, formatMoney } from '../../ui/format'
+import { NotFoundState } from '../../ui/NotFoundState'
 import styles from '../../features/deals/DealPage.module.css'
 
 export const Route = createFileRoute('/deals/$dealId')({
@@ -13,7 +15,19 @@ export const Route = createFileRoute('/deals/$dealId')({
     if (!deal) throw notFound()
   },
   component: DealPage,
+  notFoundComponent: DealNotFound,
 })
+
+function DealNotFound() {
+  const { dealId } = Route.useParams()
+  return (
+    <NotFoundState title="Deal not found" message={`There is no deal with the ID ${dealId}.`}>
+      <Link to="/deals" className={buttonClassName('primary')}>
+        Back to all deals
+      </Link>
+    </NotFoundState>
+  )
+}
 
 function DealPage() {
   const { dealId } = Route.useParams()

@@ -50,6 +50,12 @@ export function DealForm({ deal }: { deal: Deal }) {
     }
   }, [isSubmitSuccessful, savedDeal, reset])
 
+  // The deal can change outside this form (for example, a demo data reset).
+  // Take the new values only when there are no unsaved edits to lose.
+  useEffect(() => {
+    if (!isDirty) reset(toFormInput(deal), { keepIsSubmitSuccessful: true })
+  }, [deal, isDirty, reset])
+
   const blocker = useBlocker({
     shouldBlockFn: () => isDirty,
     enableBeforeUnload: () => isDirty,

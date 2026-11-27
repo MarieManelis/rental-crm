@@ -77,6 +77,10 @@
   margin-left: auto;
 }
 
+.shortLabel {
+  display: none;
+}
+
 .main {
   flex: 1;
   width: 100%;
@@ -87,8 +91,24 @@
 
 @media (max-width: 480px) {
   .header {
-    gap: var(--space-3);
+    gap: var(--space-2);
     padding: 0 var(--space-3);
+  }
+
+  .navLink {
+    padding: var(--space-2);
+  }
+
+  .headerEnd {
+    padding-inline: var(--space-2);
+  }
+
+  .longLabel {
+    display: none;
+  }
+
+  .shortLabel {
+    display: inline;
   }
 
   .main {
